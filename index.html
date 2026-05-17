@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>speed type- Professional Typing Test</title>
+    <meta name="description"
+        content="Professional typing speed test. Track WPM, improve accuracy, and customize your experience.">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Preloading standard fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Fira+Code:wght@400;500&family=Source+Code+Pro:wght@400;500&display=swap"
+        rel="stylesheet">
+</head>
+
+<body class="theme-light">
+    <!-- Top Header -->
+    <header class="app-header">
+        <div class="logo" onclick="app.switchSection('config')">
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 7V4h16v3M9 20h6M12 4v16" />
+            </svg>
+            <span>spped type</span>
+        </div>
+        <div class="header-actions">
+            <button id="theme-toggle-btn" class="icon-btn" aria-label="Toggle Theme" title="Toggle Light/Dark">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="moon-icon">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                </svg>
+            </button>
+            <button id="settings-btn" class="icon-btn" aria-label="Settings" title="Settings">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="3"></circle>
+                    <path
+                        d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z">
+                    </path>
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <div id="app-container">
+        <!-- Settings Modal -->
+        <div id="settings-modal" class="modal-overlay">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Settings</h2>
+                    <button class="icon-btn close-modal" aria-label="Close">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="setting-group">
+                        <label>Theme</label>
+                        <select id="theme-select" class="clean-select">
+                            <option value="light">Light (Default)</option>
+                            <option value="dark">Dark (Default)</option>
+                            <option value="nord">Nord</option>
+                            <option value="dracula">Dracula</option>
+                            <option value="gruvbox">Gruvbox Dark</option>
+                            <option value="solarized-light">Solarized Light</option>
+                        </select>
+                    </div>
+                    <div class="setting-group">
+                        <label>Typeface Font</label>
+                        <select id="font-select" class="clean-select">
+                            <option value="JetBrains Mono">JetBrains Mono</option>
+                            <option value="Fira Code">Fira Code</option>
+                            <option value="Source Code Pro">Source Code Pro</option>
+                            <option value="Courier New">Courier New</option>
+                        </select>
+                    </div>
+                    <div class="setting-group">
+                        <label>Caret Style</label>
+                        <select id="caret-select" class="clean-select">
+                            <option value="line">Line |</option>
+                            <option value="block">Block █</option>
+                            <option value="underline">Underline _</option>
+                        </select>
+                    </div>
+                    <div class="setting-group">
+                        <label>Font Size</label>
+                        <input type="range" id="font-size-slider" min="1.2" max="2.5" step="0.1" value="1.8">
+                    </div>
+                    <div class="setting-group checkbox-group">
+                        <label>Smooth Caret</label>
+                        <label class="switch">
+                            <input type="checkbox" id="smooth-caret-toggle" checked>
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Landing / Configuration Section -->
+        <section id="config-section" class="active">
+            <main class="config-container">
+                <div class="config-group">
+                    <h2>Typing Mode</h2>
+                    <div class="options-grid" id="mode-options">
+                        <button class="option-btn active" data-mode="small_words">Words</button>
+                        <button class="option-btn" data-mode="sentence">Sentences</button>
+                        <button class="option-btn" data-mode="paragraph">Paragraphs</button>
+                        <button class="option-btn" data-mode="code">Code Snippets</button>
+                        <button class="option-btn" data-mode="mixed_numbers">Mixed + 123</button>
+                        <button class="option-btn" data-mode="custom_letters">Specific Letters</button>
+                    </div>
+                </div>
+
+                <div class="config-group" id="custom-letters-input-group" style="display: none;">
+                    <h2>Target Letters</h2>
+                    <input type="text" id="custom-letters-input" class="clean-input" placeholder="e.g. asdfjkl"
+                        maxlength="26" pattern="[a-zA-Z]+">
+                </div>
+
+                <div class="config-group" id="length-config-group">
+                    <h2>Test Length</h2>
+                    <div class="length-toggle">
+                        <button class="toggle-btn active" data-type="time">Time</button>
+                        <button class="toggle-btn" data-type="words">Words</button>
+                    </div>
+
+                    <div class="options-row" id="time-options">
+                        <button class="option-btn" data-val="15">15s</button>
+                        <button class="option-btn active" data-val="30">30s</button>
+                        <button class="option-btn" data-val="60">60s</button>
+                        <button class="option-btn" data-val="120">120s</button>
+                    </div>
+
+                    <div class="options-row" id="words-options" style="display: none;">
+                        <button class="option-btn" data-val="10">10</button>
+                        <button class="option-btn active" data-val="25">25</button>
+                        <button class="option-btn" data-val="50">50</button>
+                        <button class="option-btn" data-val="100">100</button>
+                    </div>
+                </div>
+
+                <div class="action-row">
+                    <button id="start-btn" class="primary-action">Start Typing</button>
+                </div>
+
+                <!-- History Preview -->
+                <div class="history-preview">
+                    <h2>Recent History</h2>
+                    <div class="table-container">
+                        <table id="history-table-preview">
+                            <thead>
+                                <tr>
+                                    <th>Mode</th>
+                                    <th>WPM</th>
+                                    <th>Acc</th>
+                                    <th>Date</th>
+                                </tr>
+                            </thead>
+                            <tbody id="history-preview-body">
+                                <tr>
+                                    <td colspan="4" class="empty-state">No recent tests. Start typing!</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </main>
+        </section>
+
+        <!-- Typing Interface Section -->
+        <section id="typing-section">
+            <header class="typing-header">
+                <div class="live-stats">
+                    <div class="stat"><span id="live-wpm">0</span> wpm</div>
+                    <div class="stat"><span id="live-acc">100</span>%</div>
+                </div>
+                <div class="test-stats">
+                    <span id="live-timer">30</span>
+                </div>
+            </header>
+
+            <div class="typing-container">
+                <div id="text-display" class="text-display caret-line">
+                    <!-- Text to type will be injected here -->
+                </div>
+                <input type="text" id="hidden-input" autocomplete="off" autocorrect="off" autocapitalize="off"
+                    spellcheck="false">
+                <div class="restart-hint">Press <span>Tab</span> + <span>Enter</span> to restart</div>
+            </div>
+        </section>
+
+        <!-- Results Section -->
+        <section id="results-section">
+            <div class="results-container">
+                <h2>Test Completed</h2>
+                <div class="stats-grid">
+                    <div class="stat-card primary-stat">
+                        <div class="stat-value" id="wpm-val">0</div>
+                        <div class="stat-label">wpm</div>
+                    </div>
+                    <div class="stat-card primary-stat">
+                        <div class="stat-value" id="acc-val">100%</div>
+                        <div class="stat-label">accuracy</div>
+                    </div>
+                    <div class="stat-card secondary">
+                        <div class="stat-value" id="raw-wpm-val">0</div>
+                        <div class="stat-label">raw wpm</div>
+                    </div>
+                    <div class="stat-card secondary">
+                        <div class="stat-value" id="err-val">0%</div>
+                        <div class="stat-label">error rate</div>
+                    </div>
+                    <div class="stat-card secondary">
+                        <div class="stat-value"><span id="correct-chars">0</span>/<span id="total-chars">0</span></div>
+                        <div class="stat-label">chars (correct/total)</div>
+                    </div>
+                    <div class="stat-card secondary">
+                        <div class="stat-value" id="time-val">0s</div>
+                        <div class="stat-label">time taken</div>
+                    </div>
+                </div>
+
+                <div class="results-actions">
+                    <button id="next-test-btn" class="icon-action-btn tooltip" aria-label="Next test">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="9 18 15 12 9 6"></polyline>
+                        </svg>
+                        <span class="tooltip-text">Next Test</span>
+                    </button>
+                    <button id="restart-test-btn" class="icon-action-btn tooltip" aria-label="Restart test">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="1 4 1 10 7 10"></polyline>
+                            <polyline points="23 20 23 14 17 14"></polyline>
+                            <path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"></path>
+                        </svg>
+                        <span class="tooltip-text">Restart</span>
+                    </button>
+                    <button id="config-back-btn" class="icon-action-btn tooltip" aria-label="Configuration">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="3"></circle>
+                            <path
+                                d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z">
+                            </path>
+                        </svg>
+                        <span class="tooltip-text">Home</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
