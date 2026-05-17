@@ -137,6 +137,18 @@ const app = {
         document.querySelectorAll(`#${s.lengthType}-options .option-btn`).forEach(b => {
             b.classList.toggle('active', parseInt(b.dataset.val) === s.lengthValue);
         });
+        
+        if (s.lengthType === 'words') {
+            const activeWordsBtn = document.querySelector(`#words-options .option-btn[data-val="${s.lengthValue}"]`);
+            const customWordsInput = document.getElementById('custom-words-input');
+            if (customWordsInput) {
+                if (!activeWordsBtn) {
+                    customWordsInput.value = s.lengthValue;
+                } else {
+                    customWordsInput.value = '';
+                }
+            }
+        }
     },
 
     renderHistory() {
@@ -183,7 +195,7 @@ const app = {
         });
 
         document.getElementById('custom-letters-input').addEventListener('input', (e) => {
-            appState.settings.customLetters = e.target.value.toLowerCase().replace(/[^a-z]/g, '');
+            appState.settings.customLetters = e.target.value.toLowerCase();
             e.target.value = appState.settings.customLetters;
         });
 
@@ -200,9 +212,26 @@ const app = {
         document.querySelectorAll('.options-row .option-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 appState.settings.lengthValue = parseInt(e.target.dataset.val);
+                e.target.parentElement.querySelectorAll('.option-btn').forEach(b => b.classList.remove('active'));
+                e.target.classList.add('active');
+                if (e.target.parentElement.id === 'words-options') {
+                    document.getElementById('custom-words-input').value = '';
+                }
                 this.saveSettings();
             });
         });
+
+        const customWordsInput = document.getElementById('custom-words-input');
+        if (customWordsInput) {
+            customWordsInput.addEventListener('input', (e) => {
+                const val = parseInt(e.target.value);
+                if (!isNaN(val) && val > 0) {
+                    appState.settings.lengthValue = val;
+                    document.querySelectorAll('#words-options .option-btn').forEach(b => b.classList.remove('active'));
+                    this.saveSettings();
+                }
+            });
+        }
 
         // Navigation
         document.getElementById('start-btn').addEventListener('click', () => engine.startTest());
@@ -219,9 +248,18 @@ const engine = {
         let wordsArray = [];
         
         if (mode === 'paragraph') {
-            const para = paragraphs[Math.floor(Math.random() * paragraphs.length)];
-            wordsArray = para.split(' ');
-            if (lengthType === 'words') wordsArray = wordsArray.slice(0, lengthValue);
+            const count = lengthType === 'words' ? Math.max(1, lengthValue || 25) : 200;
+            let loopGuard = 0;
+            while (wordsArray.length < count && loopGuard < 100) {
+                const para = paragraphs[Math.floor(Math.random() * paragraphs.length)];
+                const paraWords = para.split(' ').filter(w => w.trim() !== '');
+                if (paraWords.length > 0) {
+                    wordsArray = wordsArray.concat(paraWords);
+                }
+                loopGuard++;
+            }
+            if (lengthType === 'words') wordsArray = wordsArray.slice(0, count);
+            if (wordsArray.length === 0) wordsArray = ['error', 'loading', 'paragraph'];
         } else if (mode === 'code') {
             const code = codeSnippets[Math.floor(Math.random() * codeSnippets.length)];
             // Preserve spacing by splitting on spaces and newlines carefully
